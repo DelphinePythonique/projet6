@@ -1,0 +1,27 @@
+{
+  "name": "projet6",
+  "version": "1.0.0",
+  "description": "This project is use to display a movie rating",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "sass": "sass --watch ./juststreamitapp/sass/main.scss:juststreamitapp/static/css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DelphinePythonique/projet6.git"
+  },
+  "keywords": [
+    "movie",
+    "rating"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DelphinePythonique/projet6/issues"
+  },
+  "homepage": "https://github.com/DelphinePythonique/projet6#readme",
+  "dependencies": {
+    "sass": "^1.51.0"
+  }
+}

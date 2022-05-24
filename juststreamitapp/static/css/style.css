@@ -1,0 +1,108 @@
+html {
+  font-size: 100%;
+}
+
+body {
+  #box-sizing: border-box;
+  background: #276AA1;
+  margin: 0px;
+  font-size: 1rem;
+}
+
+h1 {
+  display: block;
+  font-size: 1rem;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  font-family: "Roboto", sans-serif;
+}
+
+textarea {
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  font-family: "Roboto", sans-serif;
+}
+
+.proj {
+  display: flex;
+}
+
+.proj__header {
+  background: #174061;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: no-wrap;
+  width: 100%;
+}
+.proj__header__logo {
+  color: #174061;
+  margin-left: 10rem;
+  height: 100%;
+}
+
+.proj__header__nav {
+  flex: auto;
+  text-align: right;
+}
+.proj__header__nav__link {
+  padding-right: 10rem;
+}
+.proj__header__nav__link li {
+  display: inline;
+  padding-left: 1.5rem;
+}
+.proj__header__nav__link li a {
+  text-decoration: none;
+  color: #399CED;
+}
+.proj__header__nav__link li--active {
+  color: #174061;
+}
+.proj__header__nav__link li--active:hover {
+  cursor: default;
+  color: #174061;
+}
+.proj__header__nav__link li a:hover {
+  color: #fff;
+}
+
+.proj__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.proj__footer {
+  background: #60BCE0;
+  color: #174061;
+}
+
+.bestmovie {
+  display: flex;
+  height: 30rem;
+  margin: 2rem;
+  padding: 1rem;
+  border-style: solid;
+  border-color: #174061;
+  justify-content: space-between;
+}
+
+.category {
+  height: 15rem;
+  margin: 2rem;
+  padding: 1rem;
+  border-style: solid;
+}
+.category--toprated {
+  color: #174061;
+  border-color: #60BCE0;
+}
+
+/*# sourceMappingURL=style.css.map */

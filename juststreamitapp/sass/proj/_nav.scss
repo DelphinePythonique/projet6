@@ -1,0 +1,30 @@
+.proj__header__nav {
+    flex: auto;
+    text-align: right;
+    &__link {
+        padding-right: 10rem;
+        & li {
+            display: inline;
+            //font-size: 2rem;
+            padding-left: 1.5rem;
+
+            & a {
+                text-decoration: none;
+                color: $colour-accent;
+            }
+
+            &--active {
+                color: $colour-secondary;
+
+                &:hover {
+                    cursor: default;
+                    color: $colour-secondary;
+                }
+            }
+
+            & a:hover {
+                color: $colour-white;
+            }
+        }
+    }
+}

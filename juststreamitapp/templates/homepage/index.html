@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <script type="module" src="{{ url_for('static',filename='js/api.js')}}" async></script>
+{%  endblock %}
+{% block title %} {{ super() }}|Homepage {% endblock %}
+{% block header %}
+
+    {% include("_header.html") %}
+{% endblock %}
+{%  block content %}
+
+    <section class="bestmovie">
+
+      {%  include("homepage/_best_movie.html")  %}
+
+    </section>
+    {% set promote_movies_keys = ["toprated","categoryone","categorytwo", "categorythree"] %}
+    {% for promote_movies_key in promote_movies_keys %}
+           {%  set category = promote_movies_key   %}
+           {%  include("homepage/_categories_section.html")  %}
+    {% endfor %}
+
+
+{% endblock %}
