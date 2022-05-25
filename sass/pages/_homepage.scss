@@ -1,0 +1,47 @@
+.bestmovie{
+  display: flex;
+  height: 30rem;
+  margin:2rem;
+  padding:1rem;
+  border-style: solid;
+  border-color: $colour-secondary;
+  justify-content:  space-between;
+
+}
+
+button.previous, button.next{
+  height:3rem;
+  width: 3rem;
+  font-weight: bold;
+  font-size: xx-large;
+  background-color: transparent;
+  border-style: hidden;
+  cursor:pointer;
+}
+
+.category{
+  display: flex;
+  align-items: center;
+  height: 15rem;
+  margin:2rem;
+  padding:1rem;
+  border-style: solid;
+  & ul {
+    display: flex;
+    scroll-snap-type: x mandatory;
+    list-style-type: none;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding: 1rem 0;
+    & li {
+      margin-left:1rem;
+      width: 15rem;
+       scroll-snap-align: start;
+    }
+  }
+
+  &__toprated{
+    color: $colour-secondary;
+    border-color: $colour-primary;
+  }
+}

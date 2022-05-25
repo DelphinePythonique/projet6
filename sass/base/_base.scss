@@ -1,0 +1,36 @@
+html {
+    // 10px div by def of 16px
+    font-size: 100%;
+}
+body {
+   #box-sizing: border-box;
+    background: $colour-white;
+    margin: auto;
+    width: 70rem;
+    font-size: 1rem;
+}
+main{
+  background-color: $color-background-main;
+}
+figure{
+  display: flex;
+  margin:0;
+}
+h1 {
+  display: block;
+  font-size: 1rem;
+  margin-left:2rem;
+}
+::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+    height: 6px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #3d4852;
+    border-radius: 3px;
+}

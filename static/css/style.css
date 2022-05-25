@@ -4,14 +4,39 @@ html {
 
 body {
   #box-sizing: border-box;
-  background: #276AA1;
-  margin: 0px;
+  background: #fff;
+  margin: auto;
+  width: 70rem;
   font-size: 1rem;
+}
+
+main {
+  background-color: #276AA1;
+}
+
+figure {
+  display: flex;
+  margin: 0;
 }
 
 h1 {
   display: block;
   font-size: 1rem;
+  margin-left: 2rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  height: 6px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3d4852;
+  border-radius: 3px;
 }
 
 body {
@@ -57,6 +82,7 @@ button {
 }
 .proj__header__nav__link li {
   display: inline;
+  font-size: 2rem;
   padding-left: 1.5rem;
 }
 .proj__header__nav__link li a {
@@ -94,13 +120,38 @@ button {
   justify-content: space-between;
 }
 
+button.previous, button.next {
+  height: 3rem;
+  width: 3rem;
+  font-weight: bold;
+  font-size: xx-large;
+  background-color: transparent;
+  border-style: hidden;
+  cursor: pointer;
+}
+
 .category {
+  display: flex;
+  align-items: center;
   height: 15rem;
   margin: 2rem;
   padding: 1rem;
   border-style: solid;
 }
-.category--toprated {
+.category ul {
+  display: flex;
+  scroll-snap-type: x mandatory;
+  list-style-type: none;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding: 1rem 0;
+}
+.category ul li {
+  margin-left: 1rem;
+  width: 15rem;
+  scroll-snap-align: start;
+}
+.category__toprated {
   color: #174061;
   border-color: #60BCE0;
 }

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <link href="./static/css/style.css" type="text/css"  rel="stylesheet" >
+        <link rel="icon" href="./static/images/logo.png" />
+        <title>JustStreamIt|Homepage</title>
+
+</head>
+<body>
+  <div id="proj">
+     <header class="proj__header">
+        <img class="proj__header__logo" src="./static/images/logo.png" alt="logo" />
+         <nav class="proj__header__nav">
+            <ul class="proj__header__nav__link"  >
+                <li >
+                    <a href="/">Homepage</a>
+                </li>
+                <li>
+                     <a href="/categories">Categories</a>
+                </li>
+            </ul>
+        </nav>
+     </header>
+    <main id="main" class="proj__content">
+       <section class="bestmovie">
+
+      <div>
+            <h1 id="bestmovie__title">Super film</h1>
+            <p>C'est un superfilm</p>
+      </div>
+        <div class="bestmovie__img">
+            <figure>
+                <img class="proj__header__logo" src="./static/images/logo.png" alt="logo" />
+            </figure>
+        </div>
+
+        </section>
+
+
+
+    </main>
+    <footer class="proj__footer">
+
+            &copy; Copyright 2022 by <a href="http://localhost:5000">Delphine Pythonique</a>.
+
+    </footer>
+  </div>
+</body>
+    <script>
+
+        class Category{
+            constructor(name, elementToPopulateId, criteria, activePage=1 ){
+                this.name = name;
+                this.activePage = activePage;
+                this.elementToPopulateId = elementToPopulateId;
+                this.criteria = criteria;
+            }
+        }
+
+        const topRatedCategory = new Category("Top Rated","category__toprated",["sort_by=-imdb_score"]);
+        const categoryOne = new Category("Action", "category__categoryone",["genre=Action","sort_by=-imdb_score"]);
+        const categoryTwo = new Category("Drama", "category__categorytwo",["genre=Drama","sort_by=-imdb_score"]);
+        const categoryThree = new Category("Romance", "category__categorythree",["genre=Romance","sort_by=-imdb_score"]);
+
+        const domain_uri = "http://localhost:8000/api/v1/titles/"
+
+
+        function createSection(category){
+
+            innerCategory =  `<button id=\"${category.elementToPopulateId}__previous\" class=\"previous\"  > < </button> \
+                    <ul id=\"${category.elementToPopulateId}\"> </ul> \
+                    <button id=\"${category.elementToPopulateId}__next\" class=\"next\"  > > </button> \
+                    `;
+
+             const main = document.getElementById("main");
+             const title = document.createElement("h1")
+             title.innerHTML = category.name
+             const categorieSection = document.createElement("section");
+
+             categorieSection.classList.add("category", category.elementToPopulateId);
+             categorieSection.innerHTML = innerCategory
+             main.appendChild(categorieSection)
+             main.insertBefore(title, categorieSection)
+             }
+
+
+        async function fetchMoviesApi(url){
+           const response = await fetch(url)
+           const movies = await response.json()
+           return movies.results
+        }
+        function populateCategories(movies, category){
+           const ulCategory = document.getElementById(category.elementToPopulateId)
+           for (let i in movies) {
+               let imageMovie = document.createElement("img")
+               imageMovie.setAttribute("src",movies[i].image_url)
+               let liMovie = document.createElement("li")
+               liMovie.appendChild(imageMovie)
+               //liMovie.innerHTML = movies[i].title
+               ulCategory.appendChild(liMovie)
+
+            }
+       }
+
+       function fetchMovies(category) {
+           let url = domain_uri + "?page=" + category.activePage + "&" + category.criteria.join("&")
+           if (category.activePage ==1) {
+               createSection(category)
+          }
+
+           fetchMoviesApi(url).then(movies => {
+               populateCategories(movies, category)
+           });
+       }
+
+
+       fetchMovies(topRatedCategory)
+       fetchMovies(categoryOne)
+       fetchMovies(categoryTwo)
+       fetchMovies(categoryThree)
+
+
+
+       function scrollWithButton(buttonForScrollId, elementToScrollId, direction, interval ) {
+           const buttonForScroll = document.getElementById(buttonForScrollId);
+           buttonForScroll.addEventListener('click', function () {
+               const elementToScroll = document.getElementById(elementToScrollId);
+               let position = elementToScroll.scrollLeft
+               if (direction==="right") {
+                   elementToScroll.scrollLeft += interval
+               } else {
+                   elementToScroll.scrollLeft -= interval
+               }
+           });
+       };
+
+       scrollWithButton("category__toprated__next", "category__toprated", "right", 200)
+       scrollWithButton("category__toprated__previous", "category__toprated", "left", 200)
+
+    </script>
+</html>
