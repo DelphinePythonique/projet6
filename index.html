@@ -63,51 +63,69 @@
         const categoryTwo = new Category("Drama", "category__categorytwo",["genre=Drama","sort_by=-imdb_score"]);
         const categoryThree = new Category("Romance", "category__categorythree",["genre=Romance","sort_by=-imdb_score"]);
 
-        const domain_uri = "http://localhost:8000/api/v1/titles/"
+        const domain_uri = "http://localhost:8000/api/v1/titles/";
+        const scrollIndent = 200;
 
 
         function createSection(category){
 
-            innerCategory =  `<button id=\"${category.elementToPopulateId}__previous\" class=\"previous\"  > < </button> \
+            innerCategory = `<button id=\"${category.elementToPopulateId}__previous\" class=\"previous\"  > < </button> \
                     <ul id=\"${category.elementToPopulateId}\"> </ul> \
                     <button id=\"${category.elementToPopulateId}__next\" class=\"next\"  > > </button> \
                     `;
 
              const main = document.getElementById("main");
-             const title = document.createElement("h1")
-             title.innerHTML = category.name
+             const title = document.createElement("h1");
+             title.innerHTML = category.name;
              const categorieSection = document.createElement("section");
 
              categorieSection.classList.add("category", category.elementToPopulateId);
-             categorieSection.innerHTML = innerCategory
-             main.appendChild(categorieSection)
-             main.insertBefore(title, categorieSection)
+             categorieSection.innerHTML = innerCategory;
+             main.appendChild(categorieSection);
+             main.insertBefore(title, categorieSection);
+
+            return categorieSection;
+
              }
-
-
         async function fetchMoviesApi(url){
-           const response = await fetch(url)
-           const movies = await response.json()
+           const response = await fetch(url);
+           const movies = await response.json();
            return movies.results
         }
         function populateCategories(movies, category){
-           const ulCategory = document.getElementById(category.elementToPopulateId)
+           const ulCategory = document.getElementById(category.elementToPopulateId);
            for (let i in movies) {
-               let imageMovie = document.createElement("img")
-               imageMovie.setAttribute("src",movies[i].image_url)
-               let liMovie = document.createElement("li")
-               liMovie.appendChild(imageMovie)
+               let imageMovie = document.createElement("img");
+               imageMovie.setAttribute("src",movies[i].image_url);
+               let liMovie = document.createElement("li");
+               liMovie.appendChild(imageMovie);
                //liMovie.innerHTML = movies[i].title
-               ulCategory.appendChild(liMovie)
+               ulCategory.appendChild(liMovie);
 
             }
        }
 
+       let scrollToPrevious = category => function(){
+
+               const elementToScroll = document.getElementById(category.elementToPopulateId);
+               elementToScroll.scrollLeft -= scrollIndent;
+            //   alert('coucou');
+       };
+
+       function attachEventToScrollButton(category){
+            let button = document.getElementById(category.elementToPopulateId+"__previous");
+            button.addEventListener('click',
+                scrollToPrevious(category));
+
+       }
+
        function fetchMovies(category) {
            let url = domain_uri + "?page=" + category.activePage + "&" + category.criteria.join("&")
-           if (category.activePage ==1) {
-               createSection(category)
-          }
+           let section;
+           if (category.activePage == 1) {
+               section = createSection(category);
+               attachEventToScrollButton(category);
+           }
 
            fetchMoviesApi(url).then(movies => {
                populateCategories(movies, category)
@@ -116,27 +134,15 @@
 
 
        fetchMovies(topRatedCategory)
-       fetchMovies(categoryOne)
+
+        fetchMovies(categoryOne)
+
        fetchMovies(categoryTwo)
+
        fetchMovies(categoryThree)
 
 
 
-       function scrollWithButton(buttonForScrollId, elementToScrollId, direction, interval ) {
-           const buttonForScroll = document.getElementById(buttonForScrollId);
-           buttonForScroll.addEventListener('click', function () {
-               const elementToScroll = document.getElementById(elementToScrollId);
-               let position = elementToScroll.scrollLeft
-               if (direction==="right") {
-                   elementToScroll.scrollLeft += interval
-               } else {
-                   elementToScroll.scrollLeft -= interval
-               }
-           });
-       };
-
-       scrollWithButton("category__toprated__next", "category__toprated", "right", 200)
-       scrollWithButton("category__toprated__previous", "category__toprated", "left", 200)
 
     </script>
 </html>
