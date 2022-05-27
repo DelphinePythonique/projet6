@@ -146,7 +146,7 @@ button {
   width: 100%;
 }
 
-button.previous, button.next {
+img.previous, img.next {
   height: 3rem;
   width: 3rem;
   font-weight: bold;

@@ -73,9 +73,9 @@
 //---------------------------CREATE DOM and LINK EVENT----------------------------------------
 //-----Category section -------
    function createSection(category){
-        innerCategory = `<button id=\"${category.elementToPopulateId}__previous\" class=\"previous\"  > < </button> \
+        innerCategory = `<img src=\"./static/images/previous.png\" id=\"${category.elementToPopulateId}__previous\" class=\"previous\"  />  \
                 <ul id=\"${category.elementToPopulateId}\"> </ul> \
-                <button id=\"${category.elementToPopulateId}__next\" class=\"next\"  > > </button> \
+                <img src=\"./static/images/next.png\" id=\"${category.elementToPopulateId}__next\" class=\"next\"  >  \
                 `;
 
          const main = document.getElementById("main");
