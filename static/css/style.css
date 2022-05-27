@@ -39,6 +39,11 @@ h1 {
   border-radius: 3px;
 }
 
+@media screen and (max-width: 1024px) {
+  body {
+    width: 100%;
+  }
+}
 body {
   font-family: "Roboto", sans-serif;
 }
@@ -213,6 +218,16 @@ button.previous, button.next {
 }
 #movieDetailModal__content__paragraph div {
   padding-left: 1rem;
+}
+
+.movie {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+  #movieDetailModal__content__paragraph {
+    flex-direction: column;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
