@@ -24,39 +24,30 @@
      </header>
     <main id="main" class="proj__content">
        <section id="bestmovie_id" class="bestmovie">
-
-
-        </section>
-
-
-
-    </main>
+       </section>
+   </main>
     <footer class="proj__footer">
-
             &copy; Copyright 2022 by <a href="http://localhost:5000">Delphine Pythonique</a>.
-
     </footer>
   </div>
 </body>
-    <script>
+<script>
 
-        class Category{
-            constructor(name, elementToPopulateId, criteria, isCategorySection=true){
-                this.name = name;
-                this.activePage = 1;
-                this.elementToPopulateId = elementToPopulateId;
-                this.nextButonnId = `${elementToPopulateId}__next`;
-                this.criteria = criteria;
-                this.isCategorySection = isCategorySection;
-            };
+ //---------------------------CATEGORIES----------------------------------------
+   class Category{
+        constructor(name, elementToPopulateId, criteria, isCategorySection=true){
+            this.name = name;
+            this.activePage = 1;
+            this.elementToPopulateId = elementToPopulateId;
+            this.nextButonnId = `${elementToPopulateId}__next`;
+            this.criteria = criteria;
+            this.isCategorySection = isCategorySection;
+        };
 
-            getUrl(){
-                return `${domain_uri}?page=${this.activePage}&${this.criteria.join("&")}`;
-            }
-
+        getUrl(){
+            return `${domain_uri}?page=${this.activePage}&${this.criteria.join("&")}`;
         }
-
-
+   }
         const categories  = [
             new Category("Best Movie","bestmovie_id",["sort_by=-imdb_score"], false),
             new Category("Top Rated","category__toprated",["sort_by=-imdb_score"]),
@@ -67,33 +58,49 @@
         const domain_uri = "http://localhost:8000/api/v1/titles/";
         const scrollIndent = 200;
 
+//---------------------------CREATE DOM and LINK EVENT----------------------------------------
+//-----Category section -------
+   function createSection(category){
+        innerCategory = `<button id=\"${category.elementToPopulateId}__previous\" class=\"previous\"  > < </button> \
+                <ul id=\"${category.elementToPopulateId}\"> </ul> \
+                <button id=\"${category.elementToPopulateId}__next\" class=\"next\"  > > </button> \
+                `;
 
-        function createSection(category){
+         const main = document.getElementById("main");
+         const title = document.createElement("h1");
+         title.innerHTML = category.name;
+         const categorySection = document.createElement("section");
 
-            innerCategory = `<button id=\"${category.elementToPopulateId}__previous\" class=\"previous\"  > < </button> \
-                    <ul id=\"${category.elementToPopulateId}\"> </ul> \
-                    <button id=\"${category.elementToPopulateId}__next\" class=\"next\"  > > </button> \
-                    `;
+         categorySection.classList.add("category", category.elementToPopulateId);
+         categorySection.innerHTML = innerCategory;
+         main.appendChild(categorySection);
+         main.insertBefore(title, categorySection);
 
-             const main = document.getElementById("main");
-             const title = document.createElement("h1");
-             title.innerHTML = category.name;
-             const categorieSection = document.createElement("section");
+        return categorySection;
+   }
 
-             categorieSection.classList.add("category", category.elementToPopulateId);
-             categorieSection.innerHTML = innerCategory;
-             main.appendChild(categorieSection);
-             main.insertBefore(title, categorieSection);
+   let scrollToPrevious = category => function(){
+           const elementToScroll = document.getElementById(category.elementToPopulateId);
+           elementToScroll.scrollLeft -= scrollIndent;
+   };
 
-            return categorieSection;
+   let scrollToNext = category => function(){
+        category.activePage++;
+        fetchCategoryMovies(category);
+       const elementToScroll = document.getElementById(category.elementToPopulateId);
+       elementToScroll.scrollLeft += scrollIndent;
+   };
 
-             }
-        async function fetchMoviesApi(url){
-           const response = await fetch(url);
-           const movies = await response.json();
-           return movies.results
-        }
-        function populateCategories(movies, category){
+   function attachEventToScrollButton(category){
+        let previousButton = document.getElementById(category.elementToPopulateId+"__previous");
+        previousButton.addEventListener('click',
+            scrollToPrevious(category));
+        let NextButton = document.getElementById(category.elementToPopulateId+"__next");
+        NextButton.addEventListener('click',
+            scrollToNext(category));
+   }
+//-----Categorie section movies
+         function populateCategories(movies, category){
            const ulCategory = document.getElementById(category.elementToPopulateId);
            for (let i in movies) {
                let imageMovie = document.createElement("img");
@@ -103,53 +110,8 @@
                ulCategory.appendChild(liMovie);
             }
        }
-
-       let scrollToPrevious = category => function(){
-
-               const elementToScroll = document.getElementById(category.elementToPopulateId);
-               elementToScroll.scrollLeft -= scrollIndent;
-       };
-
-       let scrollToNext = category => function(){
-            category.activePage++;
-            fetchCategoryMovies(category);
-           const elementToScroll = document.getElementById(category.elementToPopulateId);
-           elementToScroll.scrollLeft += scrollIndent;
-       };
-
-       function attachEventToScrollButton(category){
-            let previousButton = document.getElementById(category.elementToPopulateId+"__previous");
-            previousButton.addEventListener('click',
-                scrollToPrevious(category));
-            let NextButton = document.getElementById(category.elementToPopulateId+"__next");
-            NextButton.addEventListener('click',
-                scrollToNext(category));
-       }
-
-       function fetchCategoryMovies(category) {
-           let url = category.getUrl();
-           let section;
-           if (category.activePage == 1) {
-               section = createSection(category);
-               attachEventToScrollButton(category);
-           }
-
-           fetchMoviesApi(url).then(movies => {
-               populateCategories(movies, category)
-           });
-       }
-
-       function populateHomePage(){
-           for (let i in categories) {
-               if (categories[i].isCategorySection) {
-                   fetchCategoryMovies(categories[i]);
-               } else {
-                   fetchBestMovie(categories[i])
-               }
-            };
-       }
-
-       function populateBestMovie(movies, category){
+//-------- Best Movie section
+        function populateBestMovie(movies, category){
            const bestMovieSection = document.getElementById(category.elementToPopulateId);
            const movie = movies[0];
            const innerHtml = `<div> \
@@ -162,15 +124,43 @@
 
                             </div>`;
            bestMovieSection.innerHTML =innerHtml;
-
-
        }
-         function fetchBestMovie(category) {
-            let url = category.getUrl();
-           fetchMoviesApi(url).then(movies => {
-               populateBestMovie(movies, category)
-           });
+
+//---------------------------FETCH MOVIES----------------------------------------
+    async function fetchMoviesApi(url){
+       const response = await fetch(url);
+       const movies = await response.json();
+       return movies.results
+    }
+
+   function fetchCategoryMovies(category) {
+       let url = category.getUrl();
+       let section;
+       if (category.activePage == 1) {
+           section = createSection(category);
+           attachEventToScrollButton(category);
        }
+       fetchMoviesApi(url).then(movies => {
+           populateCategories(movies, category)
+       });
+   }
+
+   function fetchBestMovie(category) {
+        let url = category.getUrl();
+       fetchMoviesApi(url).then(movies => {
+           populateBestMovie(movies, category)
+       });
+    }
+
+    function populateHomePage(){
+       for (let i in categories) {
+           if (categories[i].isCategorySection) {
+               fetchCategoryMovies(categories[i]);
+           } else {
+               fetchBestMovie(categories[i])
+           }
+        };
+    }
        populateHomePage();
     </script>
 </html>

@@ -3,7 +3,7 @@
 ## Goals: 
 Ultimately, our goal will be to display a movie rating
 
-version: 0.0.4
+version: 0.0.5
 
 ## Summary
 
