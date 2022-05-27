@@ -1,10 +1,10 @@
 # Display homepage
 
-- [ ] Display the best movie
-- [ ] Display top-rated movies
-- [ ] Display category one
-- [ ] Display category two
-- [ ] Display category three
+- [X] Display the best movie
+- [X] Display top-rated movies
+- [X] Display category one
+- [X] Display category two
+- [X] Display category three
 
 # Display movie informations
 

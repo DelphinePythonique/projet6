@@ -6,6 +6,15 @@
   border-style: solid;
   border-color: $colour-secondary;
   justify-content:  space-between;
+  &__img{
+    height: 30rem;
+    flex-grow: 2;
+    padding-left: 2rem;
+    & img{
+      height: 100%;
+      width: 100%;
+    }
+  }
 
 }
 

@@ -119,6 +119,15 @@ button {
   border-color: #174061;
   justify-content: space-between;
 }
+.bestmovie__img {
+  height: 30rem;
+  flex-grow: 2;
+  padding-left: 2rem;
+}
+.bestmovie__img img {
+  height: 100%;
+  width: 100%;
+}
 
 button.previous, button.next {
   height: 3rem;

@@ -23,17 +23,8 @@
         </nav>
      </header>
     <main id="main" class="proj__content">
-       <section class="bestmovie">
+       <section id="bestmovie_id" class="bestmovie">
 
-      <div>
-            <h1 id="bestmovie__title">Super film</h1>
-            <p>C'est un superfilm</p>
-      </div>
-        <div class="bestmovie__img">
-            <figure>
-                <img class="proj__header__logo" src="./static/images/logo.png" alt="logo" />
-            </figure>
-        </div>
 
         </section>
 
@@ -50,19 +41,29 @@
     <script>
 
         class Category{
-            constructor(name, elementToPopulateId, criteria, activePage=1 ){
+            constructor(name, elementToPopulateId, criteria, isCategorySection=true){
                 this.name = name;
-                this.activePage = activePage;
+                this.activePage = 1;
                 this.elementToPopulateId = elementToPopulateId;
+                this.nextButonnId = `${elementToPopulateId}__next`;
                 this.criteria = criteria;
+                this.isCategorySection = isCategorySection;
+            };
+
+            getUrl(){
+                return `${domain_uri}?page=${this.activePage}&${this.criteria.join("&")}`;
             }
+
         }
 
-        const topRatedCategory = new Category("Top Rated","category__toprated",["sort_by=-imdb_score"]);
-        const categoryOne = new Category("Action", "category__categoryone",["genre=Action","sort_by=-imdb_score"]);
-        const categoryTwo = new Category("Drama", "category__categorytwo",["genre=Drama","sort_by=-imdb_score"]);
-        const categoryThree = new Category("Romance", "category__categorythree",["genre=Romance","sort_by=-imdb_score"]);
 
+        const categories  = [
+            new Category("Best Movie","bestmovie_id",["sort_by=-imdb_score"], false),
+            new Category("Top Rated","category__toprated",["sort_by=-imdb_score"]),
+            new Category("Action", "category__categoryone",["genre=Action","sort_by=-imdb_score"]),
+            new Category("Drama", "category__categorytwo",["genre=Drama","sort_by=-imdb_score"]),
+            new Category("Romance", "category__categorythree",["genre=Romance","sort_by=-imdb_score"])
+        ]
         const domain_uri = "http://localhost:8000/api/v1/titles/";
         const scrollIndent = 200;
 
@@ -99,9 +100,7 @@
                imageMovie.setAttribute("src",movies[i].image_url);
                let liMovie = document.createElement("li");
                liMovie.appendChild(imageMovie);
-               //liMovie.innerHTML = movies[i].title
                ulCategory.appendChild(liMovie);
-
             }
        }
 
@@ -109,18 +108,26 @@
 
                const elementToScroll = document.getElementById(category.elementToPopulateId);
                elementToScroll.scrollLeft -= scrollIndent;
-            //   alert('coucou');
+       };
+
+       let scrollToNext = category => function(){
+            category.activePage++;
+            fetchCategoryMovies(category);
+           const elementToScroll = document.getElementById(category.elementToPopulateId);
+           elementToScroll.scrollLeft += scrollIndent;
        };
 
        function attachEventToScrollButton(category){
-            let button = document.getElementById(category.elementToPopulateId+"__previous");
-            button.addEventListener('click',
+            let previousButton = document.getElementById(category.elementToPopulateId+"__previous");
+            previousButton.addEventListener('click',
                 scrollToPrevious(category));
-
+            let NextButton = document.getElementById(category.elementToPopulateId+"__next");
+            NextButton.addEventListener('click',
+                scrollToNext(category));
        }
 
-       function fetchMovies(category) {
-           let url = domain_uri + "?page=" + category.activePage + "&" + category.criteria.join("&")
+       function fetchCategoryMovies(category) {
+           let url = category.getUrl();
            let section;
            if (category.activePage == 1) {
                section = createSection(category);
@@ -132,17 +139,38 @@
            });
        }
 
+       function populateHomePage(){
+           for (let i in categories) {
+               if (categories[i].isCategorySection) {
+                   fetchCategoryMovies(categories[i]);
+               } else {
+                   fetchBestMovie(categories[i])
+               }
+            };
+       }
 
-       fetchMovies(topRatedCategory)
+       function populateBestMovie(movies, category){
+           const bestMovieSection = document.getElementById(category.elementToPopulateId);
+           const movie = movies[0];
+           const innerHtml = `<div> \
+                                <h1>${movie.title}</h1> \
+                                <button>play</button> \
+                            </div> \
+                            <div class="bestmovie__img"> \
 
-        fetchMovies(categoryOne)
+                                    <img class="" src="${movie.image_url}" alt="logo" /> \
 
-       fetchMovies(categoryTwo)
-
-       fetchMovies(categoryThree)
-
+                            </div>`;
+           bestMovieSection.innerHTML =innerHtml;
 
 
-
+       }
+         function fetchBestMovie(category) {
+            let url = category.getUrl();
+           fetchMoviesApi(url).then(movies => {
+               populateBestMovie(movies, category)
+           });
+       }
+       populateHomePage();
     </script>
 </html>
