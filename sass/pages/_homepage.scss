@@ -1,11 +1,15 @@
 .bestmovie{
   display: flex;
   height: 30rem;
-  margin:2rem;
-  padding:1rem;
+  //margin:2rem;
+  //padding:1rem;
   border-style: solid;
   border-color: $colour-secondary;
   justify-content:  space-between;
+  &__text{
+    padding-left: 1rem;
+    width: 15rem;
+  }
   &__img{
     height: 30rem;
     flex-grow: 2;
@@ -34,7 +38,7 @@ button.previous, button.next{
   height: 15rem;
   margin:2rem;
   padding:1rem;
-  border-style: solid;
+  //border-style: solid;
   & ul {
     display: flex;
     scroll-snap-type: x mandatory;
@@ -52,5 +56,43 @@ button.previous, button.next{
   &__toprated{
     color: $colour-secondary;
     border-color: $colour-primary;
+  }
+}
+
+.movieDetailModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  &__content{
+      background-color: $color-background-main;
+
+      margin: 15% auto; /* 15% from the top and centered */
+      padding: 2rem;
+      border: 1rem solid #888;
+      width: 50%; /* Could be more or less, depending on screen size */
+  }
+  &__close{
+      color: #aaa;
+      float: right;
+      font-size: 2rem;
+      font-weight: bold;
+      &:hover, &:focus{
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+  }
+}
+#movieDetailModal__content__paragraph{
+  display:flex;
+  & div {
+    padding-left:1rem;
   }
 }

@@ -5,7 +5,6 @@
         <link href="./static/css/style.css" type="text/css"  rel="stylesheet" >
         <link rel="icon" href="./static/images/logo.png" />
         <title>JustStreamIt|Homepage</title>
-
 </head>
 <body>
   <div id="proj">
@@ -30,6 +29,19 @@
             &copy; Copyright 2022 by <a href="http://localhost:5000">Delphine Pythonique</a>.
     </footer>
   </div>
+<!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
+
+    <!-- The Modal -->
+    <div id="movieDetailModalId" class="movieDetailModal">
+
+      <!-- Modal content -->
+      <div class="movieDetailModal__content">
+        <span class="movieDetailModal__close">&times;</span>
+        <div id="movieDetailModal__content__paragraph">Some text in the Modal..</div>
+      </div>
+
+    </div>
 </body>
 <script>
 
@@ -105,25 +117,60 @@
            for (let i in movies) {
                let imageMovie = document.createElement("img");
                imageMovie.setAttribute("src",movies[i].image_url);
+               imageMovie.setAttribute("movie_id",movies[i].id);
+               imageMovie.classList.add("movie");
                let liMovie = document.createElement("li");
                liMovie.appendChild(imageMovie);
                ulCategory.appendChild(liMovie);
-            }
+               imageMovie.addEventListener('click',openDetailMovieModal())
+           }
+       }
+
+       let openDetailMovieModal = () => function(){
+            url = `${domain_uri}${this.getAttribute('movie_id')}`;
+
+           fetchMovieApi(url).then(movie => {
+               let movieDetailmodal = document.getElementById('movieDetailModalId');
+               movieDetailmodal.style.display = "block";
+               let movieDetailModalContentParagraph = document.getElementById('movieDetailModal__content__paragraph');
+               let innerHTML = `<div> \
+                                    <img src=\"${movie.image_url}\" /> \
+                                    <h1>${movie.title}</h1> \
+                                 </div> \
+                                <div> \
+                                    <p> \
+                                        <b>Genres:</b>${movie.genres.join(',')} <br>\
+                                        <b>Date Published:</b>${movie.date_published}<br> \
+                                        <b>Rated:</b>${movie.rated} <br>\
+                                        <b>Imdb score:</b>${movie.imdb_score} \
+                                        <b>Directors:</b>${movie.directors.join(',')} <br>\
+                                        <b>Actors:</b>${movie.actors.join(',')} <br>\
+                                        <b>Duration:</b>${movie.duration}<br> \
+                                        <b>Votes:</b>${movie.votes}<br> \
+                                        <b>Long description:</b>${movie.long_description}<br> \
+                                      </p> \
+                                </div>`;
+               movieDetailModalContentParagraph.innerHTML = innerHTML;
+
+               console.log(movie.title);
+           });
+
        }
 //-------- Best Movie section
-        function populateBestMovie(movies, category){
+        function populateBestMovie(movie, category){
            const bestMovieSection = document.getElementById(category.elementToPopulateId);
-           const movie = movies[0];
-           const innerHtml = `<div> \
+
+           const innerHtml = `<div  class="bestmovie__text"> \
                                 <h1>${movie.title}</h1> \
+                                <p>${movie.description}</p> \
                                 <button>play</button> \
                             </div> \
                             <div class="bestmovie__img"> \
-
-                                    <img class="" src="${movie.image_url}" alt="logo" /> \
-
+                                    <img movie_id="${movie.id}" id="bestmovie__img__img"  class="movie" src="${movie.image_url}" alt="logo" /> \
                             </div>`;
            bestMovieSection.innerHTML =innerHtml;
+            const imageMovie = document.getElementById('bestmovie__img__img')
+           imageMovie.addEventListener('click',openDetailMovieModal())
        }
 
 //---------------------------FETCH MOVIES----------------------------------------
@@ -131,6 +178,11 @@
        const response = await fetch(url);
        const movies = await response.json();
        return movies.results
+    }
+   async function fetchMovieApi(url){
+       const response = await fetch(url);
+       const movie = await response.json();
+       return movie
     }
 
    function fetchCategoryMovies(category) {
@@ -146,9 +198,15 @@
    }
 
    function fetchBestMovie(category) {
-        let url = category.getUrl();
+       let url = category.getUrl();
        fetchMoviesApi(url).then(movies => {
-           populateBestMovie(movies, category)
+           let movieId = movies[0].id;
+           url = `${domain_uri}${movieId}`;
+           //fetchMovieApi sans s
+           fetchMovieApi(url).then(movie => {
+               populateBestMovie(movie, category)
+           });
+
        });
     }
 
@@ -162,5 +220,21 @@
         };
     }
        populateHomePage();
+       attachEventOpenModalDetailMovieToImageMovie();
+
+       function attachEventOpenModalDetailMovieToImageMovie() {
+
+           var movieDetailmodal = document.getElementById("movieDetailModalId");
+           var span = document.getElementsByClassName("movieDetailModal__close")[0];
+           span.onclick = function () {
+               movieDetailmodal.style.display = "none";
+           }
+           window.onclick = function (event) {
+               if (event.target == movieDetailmodal) {
+                   movieDetailmodal.style.display = "none";
+               }
+           }
+       }
+
     </script>
 </html>
