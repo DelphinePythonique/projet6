@@ -54,6 +54,7 @@
             this.nextButonnId = `${elementToPopulateId}__next`;
             this.criteria = criteria;
             this.isCategorySection = isCategorySection;
+            this.allPagesIsLoaded = false;
         };
 
         getUrl(){
@@ -97,8 +98,10 @@
    };
 
    let scrollToNext = category => function(){
-        category.activePage++;
-        fetchCategoryMovies(category);
+       if (!category.allPagesIsLoaded) {
+           category.activePage++;
+           fetchCategoryMovies(category);
+       }
        const elementToScroll = document.getElementById(category.elementToPopulateId);
        elementToScroll.scrollLeft += scrollIndent;
    };
@@ -117,12 +120,14 @@
            for (let i in movies) {
                let imageMovie = document.createElement("img");
                imageMovie.setAttribute("src",movies[i].image_url);
+               imageMovie.setAttribute("onerror","this.src='./static/images/camera.png'");
                imageMovie.setAttribute("movie_id",movies[i].id);
                imageMovie.classList.add("movie");
                let liMovie = document.createElement("li");
                liMovie.appendChild(imageMovie);
                ulCategory.appendChild(liMovie);
                imageMovie.addEventListener('click',openDetailMovieModal())
+               console.log(movies[i].title);
            }
        }
 
@@ -134,7 +139,7 @@
                movieDetailmodal.style.display = "block";
                let movieDetailModalContentParagraph = document.getElementById('movieDetailModal__content__paragraph');
                let innerHTML = `<div> \
-                                    <img src=\"${movie.image_url}\" /> \
+                                    <img src=\"${movie.image_url}\" onerror=\"this.src='./static/images/camera.png'\"/> \
                                     <h1>${movie.title}</h1> \
                                  </div> \
                                 <div> \
@@ -165,7 +170,8 @@
                                 <p>${movie.description}</p> \
                               </div> \
                             <div class="bestmovie__img"> \
-                                    <img movie_id="${movie.id}" id="bestmovie__img__img"  class="movie" src="${movie.image_url}" alt="logo" /> \
+                                    <img movie_id="${movie.id}" id="bestmovie__img__img"  class="movie" \
+                                    src="${movie.image_url}" onerror="this.src='./static/images/camera.png'" alt="logo" /> \
                             </div>`;
            bestMovieSection.innerHTML =innerHtml;
             const imageMovie = document.getElementById('bestmovie__img__img')
@@ -173,10 +179,16 @@
        }
 
 //---------------------------FETCH MOVIES----------------------------------------
-    async function fetchMoviesApi(url){
+    async function fetchMoviesApi(url, category){
+       let movies ={} ;
        const response = await fetch(url);
-       const movies = await response.json();
-       return movies.results
+       if (response.ok) {
+           const results = await response.json();
+           movies = results.results;
+       } else {
+           category.allPagesIsLoaded = true;
+       }
+       return movies
     }
    async function fetchMovieApi(url){
        const response = await fetch(url);
@@ -191,9 +203,9 @@
            section = createSection(category);
            attachEventToScrollButton(category);
        }
-       fetchMoviesApi(url).then(movies => {
-           populateCategories(movies, category)
-       });
+           fetchMoviesApi(url, category).then(movies => {
+               populateCategories(movies, category)
+           });
    }
 
    function fetchBestMovie(category) {
