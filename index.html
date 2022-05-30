@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="UTF-8">
-        <link href="./static/css/style.css" type="text/css"  rel="stylesheet" >
+        <link href="./static/css/prefixed/style.css" type="text/css"  rel="stylesheet" >
         <link rel="icon" href="./static/images/logo.png" />
         <title>JustStreamIt|Homepage</title>
 </head>
@@ -10,19 +10,19 @@
   <div id="proj">
      <header class="proj__header">
         <img class="proj__header__logo" src="./static/images/logo.png" alt="JustStreamIt's logo" />
-         <nav class="proj__header__nav">
+         <nav role=”navigation” class="proj__header__nav">
             <ul class="proj__header__nav__link"  >
                 <li >
-                    <a href="">Homepage</a>
+                    <a aria-label="homepage" href="">Homepage</a>
                 </li>
                 <li>
-                     <a href="">Categories</a>
+                     <a aria-label="categories(non actif)" href="">Categories</a>
                 </li>
             </ul>
         </nav>
      </header>
     <main id="main" class="proj__content">
-       <div id="bestmovie_id" class="bestmovie">
+       <div aria-label="Best Movie" id="bestmovie_id" class="bestmovie">
        </div>
    </main>
     <footer class="proj__footer">
