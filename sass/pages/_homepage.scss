@@ -47,6 +47,8 @@ img.previous, img.next{
     overflow-x: scroll;
     overflow-y: hidden;
     padding: 1rem 0;
+       cursor: grabbing;
+
     & li {
       margin-left:1rem;
       width: 15rem;
