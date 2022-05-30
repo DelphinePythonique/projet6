@@ -1,9 +1,10 @@
 .bestmovie{
+  margin-top:2rem;
   display: flex;
   height: 30rem;
-  //margin:2rem;
-  //padding:1rem;
+
   border-style: solid;
+  border-width: 0.5rem;
   border-color: $colour-secondary;
   justify-content:  space-between;
   &__text{
@@ -52,7 +53,13 @@ img.previous, img.next{
     & li {
       margin-left:1rem;
       width: 15rem;
-       scroll-snap-align: start;
+      scroll-snap-align: start;
+      & img{
+
+        border-style: solid;
+        border-width: 0.3rem;
+        border-color: $colour-secondary;
+      }
     }
   }
 

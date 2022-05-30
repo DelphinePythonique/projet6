@@ -63,10 +63,10 @@
    }
         const categories  = [
             new Category("Best Movie","bestmovie_id",["sort_by=-imdb_score"], false),
-            new Category("Top Rated","category__toprated",["sort_by=-imdb_score"]),
-            new Category("Action", "category__categoryone",["genre=Action","sort_by=-imdb_score"]),
-            new Category("Drama", "category__categorytwo",["genre=Drama","sort_by=-imdb_score"]),
-            new Category("Romance", "category__categorythree",["genre=Romance","sort_by=-imdb_score"])
+            new Category("Top rated movies","category__toprated",["sort_by=-imdb_score"]),
+            new Category("Action movies", "category__categoryone",["genre=Action","sort_by=-imdb_score"]),
+            new Category("Drama movies", "category__categorytwo",["genre=Drama","sort_by=-imdb_score"]),
+            new Category("Romance movies", "category__categorythree",["genre=Romance","sort_by=-imdb_score"])
         ]
         const domain_uri = "http://localhost:8000/api/v1/titles/";
         const scrollIndent = 200;
@@ -80,7 +80,7 @@
                 `;
 
          const main = document.getElementById("main");
-         const title = document.createElement("h1");
+         const title = document.createElement("h2");
          title.innerHTML = category.name;
          const categorySection = document.createElement("section");
 
