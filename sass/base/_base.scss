@@ -21,17 +21,32 @@ h1 {
   font-size: 1rem;
   margin-left:2rem;
 }
+
+a {
+  text-decoration: none;
+  color: $colour-accent;
+
+
+  &--active {
+    color: $colour-secondary;
+
+    &:hover {
+      cursor: default;
+      color: $colour-secondary;
+    }
+  }
+}
 ::-webkit-scrollbar-track {
-    background-color: #F5F5F5;
+    background-color: $colour-invalid;
 }
 
 ::-webkit-scrollbar {
-    height: 6px;
-    background-color: #F5F5F5;
+    height:0.1rem;
+    background-color: $colour-accent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #3d4852;
+    background-color: $colour-accent;
     border-radius: 3px;
 }
 

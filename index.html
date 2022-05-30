@@ -9,7 +9,7 @@
 <body>
   <div id="proj">
      <header class="proj__header">
-        <img class="proj__header__logo" src="./static/images/logo.png" alt="logo" />
+        <img class="proj__header__logo" src="./static/images/logo.png" alt="JustStreamIt's logo" />
          <nav class="proj__header__nav">
             <ul class="proj__header__nav__link"  >
                 <li >
@@ -74,9 +74,9 @@
 //---------------------------CREATE DOM and LINK EVENT----------------------------------------
 //-----Category section -------
    function createSection(category){
-        innerCategory = `<img src=\"./static/images/previous.png\" id=\"${category.elementToPopulateId}__previous\" class=\"previous\"  />  \
+        innerCategory = `<img src=\"./static/images/previous.png\" alt=\"Display previous ${category.name}\" id=\"${category.elementToPopulateId}__previous\" class=\"previous\"  />  \
                 <ul id=\"${category.elementToPopulateId}\"> </ul> \
-                <img src=\"./static/images/next.png\" id=\"${category.elementToPopulateId}__next\" class=\"next\"  >  \
+                <img src=\"./static/images/next.png\" alt=\"Display next ${category.name}\" id=\"${category.elementToPopulateId}__next\" class=\"next\"  >  \
                 `;
 
          const main = document.getElementById("main");
@@ -119,6 +119,7 @@
            const ulCategory = document.getElementById(category.elementToPopulateId);
            for (let i in movies) {
                let imageMovie = document.createElement("img");
+               imageMovie.setAttribute("alt", `${movies[i].title} Poster`)
                imageMovie.setAttribute("src",movies[i].image_url);
                imageMovie.setAttribute("onerror","this.src='./static/images/camera.png'");
                imageMovie.setAttribute("movie_id",movies[i].id);
@@ -139,7 +140,8 @@
                movieDetailmodal.style.display = "block";
                let movieDetailModalContentParagraph = document.getElementById('movieDetailModal__content__paragraph');
                let innerHTML = `<div> \
-                                    <img src=\"${movie.image_url}\" onerror=\"this.src='./static/images/camera.png'\"/> \
+                                    <img src=\"${movie.image_url}\" onerror=\"this.src='./static/images/camera.png'\" \
+                                         alt=\"Poster ${movie.title}\"  /> \
                                     <h1>${movie.title}</h1> \
                                  </div> \
                                 <div> \
@@ -171,7 +173,7 @@
                               </div> \
                             <div class="bestmovie__img"> \
                                     <img movie_id="${movie.id}" id="bestmovie__img__img"  class="movie" \
-                                    src="${movie.image_url}" onerror="this.src='./static/images/camera.png'" alt="logo" /> \
+                                    src="${movie.image_url}" onerror="this.src='./static/images/camera.png'" alt="Poster best movie" /> \
                             </div>`;
            bestMovieSection.innerHTML =innerHtml;
             const imageMovie = document.getElementById('bestmovie__img__img')

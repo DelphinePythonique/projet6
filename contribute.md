@@ -14,6 +14,26 @@ In the package.json file, the script->sass key indicates the directories where s
 it should put the generated css files.
 If you modify sass config, you must stop et run the last command
 
+# install autoprefixer postcss postcss-cli
+```bash
+npm install autoprefixer postcss postcss-cli -g
+```
+in package.json, add sentences below
+```json
+
+{
+
+"scripts": {
+     "sass": "sass ./sass/main.scss:./static/css/style.css -w --style compressed",
+     "prefix": "postcss ./static/css/style.css --use autoprefixer -d ./static/css/prefixed/"
+},
+
+"browserslist": "last 4 versions"
+}
+```
+```bash
+npm run prefix
+```
 # install local api movie
 
 - Fork repository https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR

@@ -3,9 +3,11 @@
 ## Goals: 
 Ultimately, our goal will be to display movies according to several criteria
 
-version: 0.0.6
+version: V0.0.1
 
 ## Summary
+
+[Use](#use)
 
 [Todo](TODO.md)
 
@@ -13,4 +15,7 @@ version: 0.0.6
 
 [Changelog](CHANGELOG.md)
 
+### <a name="use"></a>Uses
 
+Prerequisite:
+API run and available at http://localhost:8000/api/v1/titles/

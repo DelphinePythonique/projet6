@@ -1,9 +1,9 @@
 /*
-$colour-primary: #60BCE0;
-$colour-secondary:  #174061;
-$color-background-main: #276AA1;
-$colour-accent: #399CED;
-$colour-white: #fff;
+$colour-primary: #4375E0;
+$colour-secondary:  #94701E;
+$color-background-main: #E0B143;
+$colour-accent: #053294;
+$colour-white: #FFFF;
 $colour-invalid: #3083C7;
 
  */
@@ -34,17 +34,29 @@ h1 {
   margin-left: 2rem;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+a--active {
+  color: #94701E;
+}
+a--active:hover {
+  cursor: default;
+  color: #94701E;
+}
+
 ::-webkit-scrollbar-track {
-  background-color: #F5F5F5;
+  background-color: grey;
 }
 
 ::-webkit-scrollbar {
-  height: 6px;
-  background-color: #F5F5F5;
+  height: 0.1rem;
+  background-color: black;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #3d4852;
+  background-color: black;
   border-radius: 3px;
 }
 
@@ -102,7 +114,7 @@ button {
 }
 .proj__header__nav__link li a {
   text-decoration: none;
-  color: #053294;
+  color: black;
 }
 .proj__header__nav__link li--active {
   color: #94701E;
@@ -121,8 +133,8 @@ button {
 }
 
 .proj__footer {
-  background: #4375E0;
-  color: white;
+  background: #94701E;
+  color: black;
 }
 
 .bestmovie {
