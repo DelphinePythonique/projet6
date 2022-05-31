@@ -74,7 +74,7 @@
 //-----Category section -------
    function createSection(category){
         innerCategory = `<img src=\"./static/images/previous.png\" alt=\"Display previous ${category.name}\" id=\"${category.elementToPopulateId}__previous\" class=\"previous\"  />  \
-                <ul id=\"${category.elementToPopulateId}\"> </ul> \
+                <ul id=\"${category.elementToPopulateId}\"  aria-label=\"Display ${category.name}\" > </ul> \
                 <img src=\"./static/images/next.png\" alt=\"Display next ${category.name}\" id=\"${category.elementToPopulateId}__next\" class=\"next\"  >  \
                 `;
 
