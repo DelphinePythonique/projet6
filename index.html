@@ -13,16 +13,16 @@
          <nav role=”navigation” class="proj__header__nav">
             <ul class="proj__header__nav__link"  >
                 <li >
-                    <a aria-label="homepage" href="">Homepage</a>
+                    <a tabindex="0" aria-label="homepage" href="">Homepage</a>
                 </li>
                 <li>
-                     <a aria-label="categories(non actif)" href="">Categories</a>
+                     <a  tabindex="1" aria-label="categories(non actif)" href="">Categories</a>
                 </li>
             </ul>
         </nav>
      </header>
     <main id="main" class="proj__content">
-       <div aria-label="Best Movie" id="bestmovie_id" class="bestmovie">
+       <div  tabindex="3" aria-label="Best Movie" id="bestmovie_id" class="bestmovie">
        </div>
    </main>
     <footer class="proj__footer">
@@ -43,7 +43,7 @@
 
 
 <script>
-
+    let numSectionTab = 3
  //---------------------------CATEGORIES----------------------------------------
    class Category{
         constructor(name, elementToPopulateId, criteria, isCategorySection=true){
@@ -74,10 +74,10 @@
 //-----Category section -------
    function createSection(category){
         innerCategory = `<img src=\"./static/images/previous.png\" alt=\"Display previous ${category.name}\" id=\"${category.elementToPopulateId}__previous\" class=\"previous\"  />  \
-                <ul id=\"${category.elementToPopulateId}\"  aria-label=\"Display ${category.name}\" > </ul> \
+                <ul tabindex=\"${numSectionTab}\" id=\"${category.elementToPopulateId}\"  aria-label=\"Display ${category.name}\" > </ul> \
                 <img src=\"./static/images/next.png\" alt=\"Display next ${category.name}\" id=\"${category.elementToPopulateId}__next\" class=\"next\"  >  \
                 `;
-
+         numSectionTab ++;
          const main = document.getElementById("main");
          const title = document.createElement("h2");
          title.innerHTML = category.name;
