@@ -15,7 +15,6 @@ body {
   #box-sizing: border-box;
   background: white;
   margin: auto;
-  width: 60rem;
   font-size: 1rem;
 }
 
@@ -31,7 +30,7 @@ figure {
 h2 {
   display: block;
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.5rem;
   margin-left: 2rem;
   margin-top: 2rem;
 }
@@ -83,17 +82,12 @@ button {
   font-family: "Roboto", sans-serif;
 }
 
-.proj {
-  display: flex;
-}
-
 .proj__header {
   background: #94701E;
   height: 5rem;
   display: flex;
   align-items: center;
-  flex-wrap: no-wrap;
-  width: 100%;
+  padding: 1.5rem;
 }
 .proj__header__logo {
   color: #94701E;
@@ -130,38 +124,46 @@ button {
 }
 
 .proj__content {
+  background-color: #E0B143;
+  padding-bottom: 1rem;
+  width: 100%;
+  display: flex;
+}
+.proj__content__main {
   display: flex;
   flex-direction: column;
+  margin: auto;
+  width: 70%;
 }
 
+@media screen and (max-width: 1024px) {
+  .proj__content__main {
+    width: 100%;
+  }
+}
 .proj__footer {
   background: #94701E;
   color: black;
+  padding: 1.5rem;
 }
 
 .bestmovie {
   margin-top: 2rem;
   display: flex;
-  height: 30rem;
+  padding: 1.2rem;
   border-style: solid;
-  border-width: 0.5rem;
+  border-width: 0.2rem;
+  border-width: 0.2rem;
   border-color: #94701E;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
 }
 .bestmovie__text {
   padding-left: 1rem;
-  width: 15rem;
 }
 .bestmovie__img {
-  height: 30rem;
-  flex-grow: 2;
   padding-left: 2rem;
 }
-.bestmovie__img img {
-  height: 100%;
-  width: 100%;
-}
-
 img.previous, img.next {
   height: 3rem;
   width: 3rem;
@@ -177,7 +179,6 @@ img.previous, img.next {
   align-items: center;
   height: 15rem;
   margin: 2rem;
-  padding: 1rem;
 }
 .category ul {
   display: flex;
@@ -185,7 +186,8 @@ img.previous, img.next {
   list-style-type: none;
   overflow-x: scroll;
   overflow-y: hidden;
-  padding: 1rem 0;
+  margin-left: 1rem;
+  margin-right: 1rem;
   cursor: grabbing;
 }
 .category ul li {
@@ -256,8 +258,17 @@ img.previous, img.next {
 }
 
 @media screen and (max-width: 1024px) {
+  .bestmovie {
+    flex-direction: column;
+  }
+
   #movieDetailModal__content__paragraph {
     flex-direction: column;
+  }
+
+  img.previous, img.next {
+    height: 1.2rem;
+    width: 1.2rem;
   }
 }
 

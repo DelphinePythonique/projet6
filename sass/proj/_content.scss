@@ -1,4 +1,17 @@
 .proj__content{
-  display : flex;
-  flex-direction: column;
+  background-color: $color-background-main;
+  padding-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  &__main {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 70%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .proj__content__main {
+    width: 100%;
+  }
 }

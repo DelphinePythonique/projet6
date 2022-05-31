@@ -3,8 +3,8 @@
     height: 5rem;
     display: flex;
     align-items: center;
-    flex-wrap: no-wrap;
-    width: 100%;   
+
+    padding:1.5rem;
     &__logo {
         color: $colour-secondary;
         margin-top: 1rem;
