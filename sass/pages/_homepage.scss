@@ -5,8 +5,7 @@
   padding: 1.2rem;
   border-style: solid;
   border-width: 0.2rem;
-  border-width: 0.2rem;
-  border-color: $colour-secondary;
+  border-color: $colour-primary;
   align-items: center;
   justify-content: center;
 
@@ -55,13 +54,13 @@ img.previous, img.next{
 
     & li {
       margin-left:1rem;
-      width: 15rem;
+      width: 12rem;
       scroll-snap-align: start;
       & img{
 
         border-style: solid;
         border-width: 0.3rem;
-        border-color: $colour-secondary;
+        border-color: $colour-primary;
       }
     }
   }
@@ -84,15 +83,15 @@ img.previous, img.next{
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   &__content{
-      background-color: $color-background-main;
+      background-color: $colour-secondary;
 
       margin: 15% auto; /* 15% from the top and centered */
       padding: 2rem;
-      border: 1rem solid #888;
+      border: 0.3rem solid $colour-primary;
       width: 50%; /* Could be more or less, depending on screen size */
   }
   &__close{
-      color: #aaa;
+      color: $colour-primary;
       float: right;
       font-size: 2rem;
       font-weight: bold;
@@ -124,5 +123,8 @@ img.previous, img.next{
   img.previous, img.next {
     height: 1.2rem;
     width: 1.2rem;
+  }
+  category li {
+    width: 6rem;
   }
 }

@@ -5,12 +5,15 @@
         padding-right: 10rem;
         & li {
             display: inline;
-            font-size: 2rem;
+            font-size: 1.5rem;
             padding-left: 1.5rem;
 
             & a {
                 text-decoration: none;
-                color: $colour-accent;
+                color: $colour-white;
+                &.invalid{
+                    color: $colour-invalid;
+                }
             }
 
             &--active {

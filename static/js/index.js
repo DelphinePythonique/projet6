@@ -123,11 +123,12 @@ let openDetailMovieModal = () => function () {
 
 function innerBestMovie(movie) {
     return `<div  class="bestmovie__text"> \
-                <h1>${movie.title}</h1> \
+                <h2>${movie.title}</h2> \
                 <p>${movie.description}</p> \
             </div> \
            <div class="bestmovie__img"> \
-                <img movie_id="${movie.id}" id="bestmovie__img__img"  class="movie" \
+               
+                <img  id="${movie.id}"  class="movie" \
                 src="${movie.image_url}" onerror="this.src='./static/images/camera.png'" alt="Poster best movie" /> \
            </div>`;
 }

@@ -1,5 +1,7 @@
 .proj__header {
-    background: $colour-secondary;
+    background: linear-gradient(0.25turn, $colour-white, $colour-primary);
+
+    //background: $colour-primary;
     height: 5rem;
     display: flex;
     align-items: center;

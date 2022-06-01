@@ -9,7 +9,7 @@ body {
     font-size: 1rem;
 }
 main{
-  background-color: $color-background-main;
+  background-color: $colour-secondary;
 }
 figure{
   display: flex;
@@ -22,7 +22,9 @@ h2 {
   margin-left:2rem;
   margin-top:2rem;
 }
-
+.invalid{
+  color:$colour-invalid;
+}
 a {
   text-decoration: none;
   color: $colour-accent;
