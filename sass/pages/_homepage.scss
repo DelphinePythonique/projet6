@@ -40,8 +40,7 @@ img.previous, img.next{
   align-items: center;
   height: 15rem;
   margin:2rem;
-  //padding:1rem;
-  //border-style: solid;
+
   & ul {
     display: flex;
     scroll-snap-type: x mandatory;

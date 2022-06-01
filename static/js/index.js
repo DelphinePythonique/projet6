@@ -1,4 +1,5 @@
 //---------------------------CATEGORIES----------------------------------------
+let imageIndex = 0;
 class Category {
     constructor(name, elementToPopulateId, criteria, isCategorySection = true) {
         this.name = name;
@@ -26,23 +27,25 @@ const scrollIndent = 200;
 
 //---------------------------CREATE DOM and LINK EVENT----------------------------------------
 function innerCategorySection(category){
-        return `<img src=\"./static/images/previous.png\" alt=\"Display previous ${category.name}\" 
+        return `<h2>${category.name}</h2><div class="category  ${category.elementToPopulateId}"> \
+                    <img src=\"./static/images/previous.png\" alt=\"Display previous ${category.name}\" 
                     id=\"${category.elementToPopulateId}__previous\" class=\"previous\"  />  \
                 <ul id=\"${category.elementToPopulateId}\" > </ul> \
                 <img src=\"./static/images/next.png\" alt=\"Display next ${category.name}\" 
-                    id=\"${category.elementToPopulateId}__next\" class=\"next\"  > `;
+                    id=\"${category.elementToPopulateId}__next\" class=\"next\"  > </div>`;
 }
 //-----Category section -------
 function createSection(category) {
     const main = document.getElementById("main");
-    const title = document.createElement("h2");
-    title.innerHTML = category.name;
+
+
     const categorySection = document.createElement("section");
 
-    categorySection.classList.add("category", category.elementToPopulateId);
+    categorySection.classList.add("section");
     categorySection.innerHTML = innerCategorySection(category);
+
     main.appendChild(categorySection);
-    main.insertBefore(title, categorySection);
+    //main.insertBefore(title, categorySection);
 
     return categorySection;
 }
@@ -74,14 +77,24 @@ function attachEventToScrollButton(category) {
 function populateCategories(movies, category) {
     const ulCategory = document.getElementById(category.elementToPopulateId);
     for (let i in movies) {
+        imageIndex++;
         let imageMovie = document.createElement("img");
+        imageMovie.setAttribute("id", `img_${imageIndex}`)
         imageMovie.setAttribute("alt", `${movies[i].title} Poster`)
         imageMovie.setAttribute("src", `${movies[i].image_url}`)
         imageMovie.setAttribute("onerror", "this.src=\"./static/images/camera.png\"");
-        imageMovie.setAttribute("movie_id", `${movies[i].id}`);
+
         imageMovie.classList.add("movie");
+
+        let inputMovie = document.createElement('input');
+        inputMovie.setAttribute("type", "hidden");
+        inputMovie.setAttribute("id", `input_${imageIndex}`);
+        inputMovie.setAttribute("name", `input_${imageIndex}`);
+        inputMovie.setAttribute("value", `${movies[i].id}`);
+
         let liMovie = document.createElement("li");
         liMovie.appendChild(imageMovie);
+        liMovie.appendChild(inputMovie);
         ulCategory.appendChild(liMovie);
         imageMovie.addEventListener('click', openDetailMovieModal())
     }
@@ -110,7 +123,8 @@ function movieDetailModalContentParagraph(movie) {
 }
 
 let openDetailMovieModal = () => function () {
-    let url = `${domain_uri}${this.getAttribute('movie_id')}`;
+    let input_containing_movie_id = this.nextElementSibling;
+    let url = `${domain_uri}${input_containing_movie_id.value}`;
 
     fetchMovieApi(url).then(movie => {
         let movieDetailmodal = document.getElementById('movieDetailModalId');
@@ -121,24 +135,25 @@ let openDetailMovieModal = () => function () {
 
 }
 
-function innerBestMovie(movie) {
+function innerBestMovie(movie, image_id) {
+
     return `<div  class="bestmovie__text"> \
                 <h2>${movie.title}</h2> \
                 <p>${movie.description}</p> \
             </div> \
            <div class="bestmovie__img"> \
-               
-                <img  id="${movie.id}"  class="movie" \
+                <img  id=\"img_${image_id}\"  class="movie" \
                 src="${movie.image_url}" onerror="this.src='./static/images/camera.png'" alt="Poster best movie" /> \
+                <input type=\"hidden\" id=\"input_${image_id}\" name=\"input_${image_id}\" value=\"${movie.id}\"> \
            </div>`;
 }
 
 //-------- Best Movie section
 function populateBestMovie(movie, category) {
     const bestMovieSection = document.getElementById(category.elementToPopulateId);
-
-    bestMovieSection.innerHTML = innerBestMovie(movie);
-    const imageMovie = document.getElementById('bestmovie__img__img')
+    imageIndex++;
+    bestMovieSection.innerHTML = innerBestMovie(movie, imageIndex);
+    const imageMovie = document.getElementById(`img_${imageIndex}`)
     imageMovie.addEventListener('click', openDetailMovieModal())
 }
 

@@ -3,7 +3,7 @@
 ## Goals: 
 Ultimately, our goal will be to display movies according to several criteria
 
-version: V0.0.1
+version: V1.0.0
 
 ## Summary
 
