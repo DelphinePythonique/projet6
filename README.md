@@ -5,6 +5,8 @@ Ultimately, our goal will be to display movies according to several criteria
 
 version: V1.0.2
 
+![how to use this project](./static/images/project6.gif)
+
 ## Summary
 
 [Install](#install)
@@ -76,8 +78,6 @@ in package.json, add sentences below
 npm run prefix
 ```
 ### <a name="use"></a>Use
-
-![how to use this project](./static/images/project6.gif)
 
 - open index.html file in your browser
 - click on image to display movie's datas
