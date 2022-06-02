@@ -7,18 +7,37 @@ version: V1.0.0
 
 ## Summary
 
+[Install](#install)
+
 [Use](#use)
 
 [Todo](TODO.md)
 
 [Changelog](CHANGELOG.md)
 
-### <a name="use"></a>Uses
+### <a name="install"></a>Install
+
+#### install project6
+This setup is for a development environment.
 
 Prerequisite:
-API run and available at http://localhost:8000/api/v1/titles/
 
-# install Sass
+- \>= python3,9 for local api
+
+Through a terminal(Debian linux) or Powershell(Windows) : 
+
+Position yourself in the local directory in which you want to position the sources of the application
+``` bash
+ cd [path_to_source_directory]
+```
+-  Clone the repository via the clone command in ssh mode
+[ssh](https://docs.github.com/en/authentication/connecting-to-github-with-ssh), via la commande suivante
+
+``` bash
+ git clone git@github.com:DelphinePythonique/projet6.git
+```
+
+#### install Sass
 In order to use sass features to transform scss files in css, you must install sass
 prerequisite: nodejs, npm
 ``` bash
@@ -26,15 +45,16 @@ prerequisite: nodejs, npm
 ```
 nota: -g install sass for all projects
 
-# use sass
+#### position yourself in project6's directory and use sass
 ``` bash
+ cd [project's 6 directory]
  npm run sass
 ```
 In the package.json file, the script->sass key indicates the directories where sass finds the scss files and where
 it should put the generated css files.
 If you modify sass config, you must stop et run the last command
 
-# install autoprefixer postcss postcss-cli
+#### install autoprefixer postcss postcss-cli
 ```bash
 npm install autoprefixer postcss postcss-cli -g
 ```
@@ -51,39 +71,7 @@ in package.json, add sentences below
 "browserslist": "last 4 versions"
 }
 ```
+- generate prefixed css file before you  push your code
 ```bash
 npm run prefix
-```
-# install local api movie
-
-- Fork repository https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR
-
-- Install locally
-``` bash
- git clone git@github.com:DelphinePythonique/OCMovies-API-EN-FR.git
-```
-- Position yourself in the project directory, create a virtual environment
-
-``` bash
- cd OCMovies-API-EN-FR
- python -m venv env
-```
-- Activate virtual environment
-
-   If OS is Debian Linux: 
-``` bash
- source env/bin/activate
-```
-   If OS is Windows:
-``` bash
- .\env\Scripts\activate
-```
-- Install dependencies and populate database
-``` bash
- pip install -r requirements.txt
- python manage.py create_db
-```
-- Run application server
-``` bash
-python manage.py runserver
 ```
