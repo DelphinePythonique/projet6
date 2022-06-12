@@ -3,7 +3,7 @@
 ## Goals: 
 Ultimately, our goal will be to display movies according to several criteria
 
-version: V1.0.2
+version: V1.0.3
 
 ![how to use this project](./static/images/project6.gif)
 

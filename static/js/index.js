@@ -178,10 +178,7 @@ async function fetchMovieApi(url) {
 function fetchCategoryMovies(category) {
     let url = category.getUrl();
     fetchMoviesApi(url, category).then(movies => {
-        if (category.activePage === 1) {
-        createSection(category);
-        attachEventToScrollButton(category);
-    }
+
         populateCategories(movies, category)
     }).catch(e =>{
         document.getElementById('bestmovie_id').innerHTML = "API IS UNAVAILABLE. " +
@@ -204,6 +201,10 @@ function fetchBestMovie(category) {
 function populateHomePage() {
     for (let i in categories) {
         if (categories[i].isCategorySection) {
+
+                createSection(categories[i]);
+                attachEventToScrollButton(categories[i]);
+
             fetchCategoryMovies(categories[i]);
         } else {
             fetchBestMovie(categories[i])
